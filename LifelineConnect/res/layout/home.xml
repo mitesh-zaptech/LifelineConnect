@@ -20,7 +20,9 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/skyblue_rect"
             android:text="Settings"
-            android:textColor="#fff" />
+            android:textSize="17sp"
+            android:textColor="#fff"
+            />
     </RelativeLayout>
 
     <RelativeLayout

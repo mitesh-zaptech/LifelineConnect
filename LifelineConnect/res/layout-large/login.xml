@@ -18,18 +18,16 @@
             android:text="Login"
             android:textColor="#fff"
             android:textSize="30sp" />
-        
+
         <Button
             android:id="@+id/btninfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
             android:background="@drawable/info50" />
     </RelativeLayout>
-
-    
 
     <EditText
         android:id="@+id/edit_username"
@@ -53,6 +51,7 @@
         android:layout_marginRight="45dp"
         android:layout_marginTop="15dp"
         android:hint="Password"
+        android:inputType="textPassword"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:textSize="23sp" />
@@ -82,9 +81,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:textColor="#fff"
             android:layout_toRightOf="@+id/toggleButtonRememberButton"
             android:text="Remember me"
+            android:textColor="#fff"
             android:textSize="30sp" />
     </RelativeLayout>
 
@@ -93,13 +92,13 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_below="@+id/r2"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textColor="#fff"
         android:background="@drawable/blue_rect"
         android:text="Login"
+        android:textColor="#fff"
         android:textSize="30sp" />
 
     <RelativeLayout

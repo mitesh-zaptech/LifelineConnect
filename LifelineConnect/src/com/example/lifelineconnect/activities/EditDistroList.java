@@ -49,7 +49,8 @@ public class EditDistroList extends BaseActivityClass {
 	ListView listview, searchedListview;
 	CustomAdapter adapter;
 	RelativeLayout relativeList;
-	
+	boolean isListCreated = false;
+
 	RelativeLayout relativeInfo;
 	TextView txtInfo;
 	Animation fade_in, fade_out;
@@ -95,8 +96,8 @@ public class EditDistroList extends BaseActivityClass {
 		btnInfo = (Button) findViewById(R.id.btninfo);
 		btnClose = (Button) findViewById(R.id.btnclose);
 		txtInfo = (TextView) findViewById(R.id.txtinfo);
-		txtInfo.setText(""+Constant.EditDistrolistInfo);
-		
+		txtInfo.setText("" + Constant.EditDistrolistInfo);
+
 		fade_in = new AlphaAnimation(0.0f, 1.0f);
 		fade_in.setDuration(200);
 		fade_out = new AlphaAnimation(1.0f, 0.0f);
@@ -149,7 +150,7 @@ public class EditDistroList extends BaseActivityClass {
 				enableComponents();
 			}
 		});
-		
+
 		btnAddMember.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -167,8 +168,27 @@ public class EditDistroList extends BaseActivityClass {
 						 */
 					}
 				} else {
-					Toast.makeText(getApplicationContext(),
-							"please create a list", Toast.LENGTH_SHORT).show();
+					if (editName.getText().toString().length() > 0
+							&& memberUserID.length() > 0) {
+
+						listName = txtName.getText().toString();
+						if (listName.length() > 0) {
+							if (isOnline()) {
+								isListCreated = true;
+								AddDistroList();
+							} else {
+								Toast.makeText(getApplicationContext(),
+										"" + Constant.network_error,
+										Toast.LENGTH_SHORT).show();
+							}
+						} else {
+							Toast.makeText(
+									getApplicationContext(),
+									"Distributionlist name should not be empty.",
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+
 				}
 			}
 		});
@@ -226,7 +246,11 @@ public class EditDistroList extends BaseActivityClass {
 				if (listName.length() > 0) {
 					if (isOnline()) {
 						if (position == 0) {
-							AddDistroList();
+							if (isListCreated == false) {
+								AddDistroList();
+							} else {
+								UpdateDistroName();
+							}
 						} else {
 							UpdateDistroName();
 						}
@@ -237,7 +261,8 @@ public class EditDistroList extends BaseActivityClass {
 					}
 				} else {
 					Toast.makeText(getApplicationContext(),
-							"Distributionlist name should not be empty.", Toast.LENGTH_SHORT).show();
+							"Distributionlist name should not be empty.",
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -247,38 +272,41 @@ public class EditDistroList extends BaseActivityClass {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setMessage("Are you sure you want to delete this list?");
-				builder.setCancelable(false);
-				builder.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
+				if (ListID.length() > 0) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							context);
+					builder.setMessage("Are you sure you want to delete this list?");
+					builder.setCancelable(false);
+					builder.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// TODO Auto-generated method stub
-								if (isOnline()) {
-									DeleteUserFromDistroList();
-								} else {
-									Toast.makeText(getApplicationContext(),
-											"" + Constant.network_error,
-											Toast.LENGTH_SHORT).show();
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+									if (isOnline()) {
+										DeleteUserFromDistroList();
+									} else {
+										Toast.makeText(getApplicationContext(),
+												"" + Constant.network_error,
+												Toast.LENGTH_SHORT).show();
+									}
 								}
-							}
-						});
+							});
 
-				builder.setNegativeButton("No",
-						new DialogInterface.OnClickListener() {
+					builder.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// TODO Auto-generated method stub
-								dialog.cancel();
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+									dialog.cancel();
 
-							}
-						});
-				builder.show();
+								}
+							});
+					builder.show();
+				}
 			}
 		});
 
@@ -923,12 +951,24 @@ public class EditDistroList extends BaseActivityClass {
 				if (response != null) {
 
 					LLCApplication.setFlagRefresh(true);
-					Toast.makeText(getApplicationContext(),
-							"DistroName added successfully.",
-							Toast.LENGTH_SHORT).show();
-					finish();
-					overridePendingTransition(R.anim.hold_top,
-							R.anim.exit_in_left);
+
+					if (isListCreated == false) {
+						Toast.makeText(getApplicationContext(),
+								"DistroName added successfully.",
+								Toast.LENGTH_SHORT).show();
+						finish();
+						overridePendingTransition(R.anim.hold_top,
+								R.anim.exit_in_left);
+					} else {
+						try {
+							json_str = new JSONObject(response);
+							ListID = json_str.getString("ListID");
+							AddUserToDistroList(memberUserID);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+
+					}
 
 				}
 			}

@@ -20,6 +20,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="Tasks"
+            android:textSize="17sp"
             android:layout_marginRight="5dp" />
     </RelativeLayout>
 

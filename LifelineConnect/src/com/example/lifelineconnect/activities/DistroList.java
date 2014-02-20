@@ -22,9 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +43,7 @@ public class DistroList extends BaseActivityClass {
 	TextView title;
 	RelativeLayout relativeBack;
 	Typeface type;
-	Button btnAdd;
+	Button btnAdd, btnHome;
 	ListView listview;
 	CustomAdapter adapter;
 	String ListID, listName;
@@ -70,6 +70,7 @@ public class DistroList extends BaseActivityClass {
 		// TODO Auto-generated method stub
 		relativeBack = (RelativeLayout) findViewById(R.id.relback);
 		btnAdd = (Button) findViewById(R.id.btnadd);
+		btnHome = (Button) findViewById(R.id.btnhome);
 		title = (TextView) findViewById(R.id.title);
 		title.setTypeface(type);
 
@@ -77,8 +78,8 @@ public class DistroList extends BaseActivityClass {
 		btnInfo = (Button) findViewById(R.id.btninfo);
 		btnClose = (Button) findViewById(R.id.btnclose);
 		txtInfo = (TextView) findViewById(R.id.txtinfo);
-		txtInfo.setText(""+Constant.DistrolistInfo);
-		
+		txtInfo.setText("" + Constant.DistrolistInfo);
+
 		fade_in = new AlphaAnimation(0.0f, 1.0f);
 		fade_in.setDuration(1000);
 		fade_out = new AlphaAnimation(1.0f, 0.0f);
@@ -107,6 +108,19 @@ public class DistroList extends BaseActivityClass {
 
 	private void clickEvents() {
 		// TODO Auto-generated method stub
+
+		btnHome.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(DistroList.this,
+						HomeSlidingFragment.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				overridePendingTransition(R.anim.hold_top, R.anim.exit_in_left);
+			}
+		});
 
 		btnInfo.setOnClickListener(new OnClickListener() {
 
@@ -434,7 +448,7 @@ public class DistroList extends BaseActivityClass {
 									"" + obj.getString("NumContacts"));
 							map.put("checked", "0");
 
-							if (map.get("Description").length() > 0) {
+							if (!map.get("NumContacts").equals("-1")) {
 								LLCApplication.getDistroLists().add(map);
 							}
 

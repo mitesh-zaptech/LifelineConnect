@@ -52,6 +52,7 @@ public class ReplyMessage extends BaseActivityClass {
 	TextView title;
 	RelativeLayout relativeBack;
 	Typeface type;
+	RelativeLayout relativeProgress;
 	LinearLayout layoutVoice, layoutMessage, layoutAudio;
 	TextView txtVoice, txtMessage, txtRecording, txtSec;
 	EditText editmsgtag;
@@ -95,6 +96,7 @@ public class ReplyMessage extends BaseActivityClass {
 		title = (TextView) findViewById(R.id.title);
 		title.setTypeface(type);
 
+		relativeProgress = (RelativeLayout) findViewById(R.id.r4);
 		layoutAudio = (LinearLayout) findViewById(R.id.layoutAudio);
 		layoutVoice = (LinearLayout) findViewById(R.id.layoutVoice);
 		layoutMessage = (LinearLayout) findViewById(R.id.layoutMessage);
@@ -327,7 +329,7 @@ public class ReplyMessage extends BaseActivityClass {
 				txtMessage.setTextColor(Color.parseColor("#000000"));
 
 				layoutAudio.setVisibility(View.VISIBLE);
-				progressBar.setVisibility(View.VISIBLE);
+				relativeProgress.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -342,7 +344,7 @@ public class ReplyMessage extends BaseActivityClass {
 				txtMessage.setTextColor(Color.parseColor("#ffffff"));
 
 				layoutAudio.setVisibility(View.GONE);
-				progressBar.setVisibility(View.GONE);
+				relativeProgress.setVisibility(View.GONE);
 			}
 		});
 

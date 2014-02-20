@@ -76,8 +76,8 @@ public class Login extends BaseActivityClass {
 		fade_out = new AlphaAnimation(1.0f, 0.0f);
 		fade_out.setDuration(1000);
 
-		editUsername.setText("chris.brady");
-		editPass.setText("Machine444");
+		/*editUsername.setText("chris.brady");
+		editPass.setText("Machine444");*/
 
 	}
 
