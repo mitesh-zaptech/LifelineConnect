@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
@@ -12,7 +13,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +63,7 @@ public class ReplyMessage extends BaseActivityClass {
 	// Recording audio;
 	private MediaRecorder recorder = null;
 	String filePath = "";
+	String RectLength="";
 	MediaPlayer mediaPlayer;
 	MyCountDownTimer timer;
 	MyCountDownTimer1 timer1;
@@ -359,10 +360,13 @@ public class ReplyMessage extends BaseActivityClass {
 		});
 	}
 
+
 	public void replyWithVoice(final String message, final int position,
 			final String filePath) {
+
 		progressDialog = ProgressDialog.show(ReplyMessage.this, null,
 				"Loading...	", true, false);
+
 		Thread t = new Thread(new Runnable() {
 
 			@Override
@@ -370,29 +374,32 @@ public class ReplyMessage extends BaseActivityClass {
 				// TODO Auto-generated method stub
 
 				String resp = "";
-				try {
+				String PassTo = ""
+						+ LLCApplication.getVoicemailList().get(position)
+								.get("UserID");
 
+				try {
 					HttpClient client = new DefaultHttpClient();
 					HttpResponse response = null;
-
-					HttpPost poster = new HttpPost(
-							Constant.sSiteUrl
-									+ "/desktopmodules/teamtalkapp/uploadmessage.aspx?os=android&User_ID="
-									+ LLCApplication.getUserId()
-									+ "&RecLength=5&PassDown="
-									+ LLCApplication.getCanSeeDownline()
-									+ "&PassTo="
-									+ LLCApplication.getVoicemailList()
-											.get(position).get("UserID"));
-
+					Log.i("PassTo",
+							"" + PassTo + "\n" + LLCApplication.getUserId()
+									+ "\n" + filePath);
 					FileBody fbody = null;
 					MultipartEntity entity = new MultipartEntity(
 							HttpMultipartMode.BROWSER_COMPATIBLE);
 
 					File audio = new File(filePath);
 					fbody = new FileBody(audio, "audio/wav");
-					entity.addPart("file", fbody);
-					entity.addPart("msgtag", new StringBody(message));
+					entity.addPart("userfile", fbody);
+
+					String query = URLEncoder.encode(message, "UTF-8");
+					String url = Constant.sSiteUrl
+							+ "desktopmodules/teamtalkapp/uploadmessage.aspx?os=android&User_ID="
+							+ LLCApplication.getUserId() + "&RecLength="
+							+ RectLength + "&PassDown=1&PassTo=" + PassTo
+							+ "&msgtag=" + query;
+
+					HttpPost poster = new HttpPost(url);
 
 					poster.setEntity(entity);
 					response = client.execute(poster);
@@ -416,6 +423,7 @@ public class ReplyMessage extends BaseActivityClass {
 
 	}
 
+	
 	protected void UpdatereplyWithVoice(final String response) {
 		// TODO Auto-generated method stub
 		this.runOnUiThread(new Runnable() {
@@ -553,6 +561,7 @@ public class ReplyMessage extends BaseActivityClass {
 
 	@SuppressLint("NewApi")
 	private void stopRecording() {
+
 		if (null != recorder) {
 			recorder.stop();
 			recorder.reset();
@@ -569,6 +578,47 @@ public class ReplyMessage extends BaseActivityClass {
 		btnRecord.setAlpha(1.0f);
 		btnStop.setAlpha(0.5f);
 		btnPlay.setAlpha(1.0f);
+
+		if (mediaPlayer != null) {
+			mediaPlayer.reset();
+		}
+
+		mediaPlayer = new MediaPlayer();
+		try {
+			mediaPlayer.setDataSource(filePath);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mediaPlayer.prepare();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+
+			@Override
+			public void onPrepared(MediaPlayer mp) {
+				// TODO Auto-generated method stub
+				RectLength = "" + mediaPlayer.getDuration();
+				long timeInmillisec = Long.parseLong(RectLength);
+				long duration = timeInmillisec / 1000;
+				long hours = duration / 3600;
+				long minutes = (duration - hours * 3600) / 60;
+				long seconds = duration - (hours * 3600 + minutes * 60);
+
+				RectLength=""+seconds;
+				Log.i("RectLength", "" + RectLength);
+			}
+		});
+
 	}
 
 	private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {

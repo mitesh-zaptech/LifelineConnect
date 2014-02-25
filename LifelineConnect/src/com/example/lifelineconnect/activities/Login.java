@@ -76,8 +76,9 @@ public class Login extends BaseActivityClass {
 		fade_out = new AlphaAnimation(1.0f, 0.0f);
 		fade_out.setDuration(1000);
 
-		/*editUsername.setText("chris.brady");
-		editPass.setText("Machine444");*/
+		/*
+		 * editUsername.setText("chris.brady"); editPass.setText("Machine444");
+		 */
 
 	}
 
@@ -164,7 +165,8 @@ public class Login extends BaseActivityClass {
 				String deviceToken = ""
 						+ Secure.getString(context.getContentResolver(),
 								Secure.ANDROID_ID);
-				Log.i("deviceToken", ""+deviceToken);
+				Log.i("deviceToken", "" + deviceToken);
+				Log.i("deviceToken", "" + deviceToken);
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("Action", "CheckLogin");
 				map.put("Username", "" + em);
@@ -194,29 +196,38 @@ public class Login extends BaseActivityClass {
 				if (response != null) {
 					try {
 						json_str = new JSONObject(response);
-						LLCApplication.setUserId(""
-								+ json_str.getString("User_ID"));
-						LLCApplication.setCanSeeDownline(""
-								+ json_str.getString("CanSeeDownline"));
-						LLCApplication.setUplineName(""
-								+ json_str.getString("UplineName"));
-						LLCApplication.setUplineUserID(""
-								+ json_str.getString("UplineUserID"));
-						LLCApplication.setReceiveNotifications(""
-								+ json_str.getString("ReceiveNotifications"));
-						LLCApplication.setUsername(editUsername.getText()
-								.toString());
-						LLCApplication.setPassword(editPass.getText()
-								.toString());
-						LLCApplication.setUserloggedin(1);
 
-						if (btnRememberOnOff.isChecked()) {
-							LLCApplication.setRemember(1);
+						if (!json_str.getString("User_ID").equals("-1")) {
+							LLCApplication.setUserId(""
+									+ json_str.getString("User_ID"));
+							LLCApplication.setCanSeeDownline(""
+									+ json_str.getString("CanSeeDownline"));
+							LLCApplication.setUplineName(""
+									+ json_str.getString("UplineName"));
+							LLCApplication.setUplineUserID(""
+									+ json_str.getString("UplineUserID"));
+							LLCApplication.setReceiveNotifications(""
+									+ json_str
+											.getString("ReceiveNotifications"));
+							LLCApplication.setUsername(editUsername.getText()
+									.toString());
+							LLCApplication.setPassword(editPass.getText()
+									.toString());
+							LLCApplication.setUserloggedin(1);
+
+							if (btnRememberOnOff.isChecked()) {
+								LLCApplication.setRemember(1);
+							} else {
+								LLCApplication.setRemember(0);
+							}
+
+							GetUnreadMessageCount();
 						} else {
-							LLCApplication.setRemember(0);
+							Toast.makeText(
+									getApplicationContext(),
+									"please enter correct username and password",
+									Toast.LENGTH_SHORT).show();
 						}
-
-						GetUnreadMessageCount();
 
 					} catch (JSONException e1) {
 						// TODO Auto-generated catch block

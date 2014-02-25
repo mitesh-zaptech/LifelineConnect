@@ -13,7 +13,6 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +29,6 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.util.Log;
@@ -281,6 +279,7 @@ public class MySettings extends BaseActivityClass {
 
 	/************ Convert Image Uri path to physical path **************/
 
+	@SuppressWarnings("deprecation")
 	public static String convertImageUriToFile(Uri imageUri, Activity activity) {
 
 		int imageID = 0;
@@ -338,6 +337,7 @@ public class MySettings extends BaseActivityClass {
 					// String orientation =
 					// cursor.getString(orientation_ColumnIndex);
 
+					@SuppressWarnings("unused")
 					String CapturedImageDetails = " CapturedImageDetails : \n\n"
 							+ " ImageID :"
 							+ imageID

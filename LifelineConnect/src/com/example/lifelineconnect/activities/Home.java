@@ -404,6 +404,7 @@ public class Home extends Fragment {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public String callAPI(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 		String result = null;

@@ -3,7 +3,7 @@ package com.example.lifelineconnect.utils;
 public class Constant {
 
 	public static final String Alert_Name = "Lifeline Connect";
-	public static String sActionUrl = "http://www.life-leadership-home.com/desktopmodules/teamtalkapp/actions.aspx";
+	public static String sActionUrl = "http://www.lifeleadership.com/desktopmodules/teamtalkapp/actions.aspx";
 	public static String messagePath = "http://line.the-life-business.com/";
 	public static String sSiteUrl = "http://www.life-leadership-home.com/";
 	public static String network_error = "please check your network connectivity.";

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,7 +14,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +34,11 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -51,9 +52,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lifelineconnect.LLCApplication;
-import com.example.lifelineconnect.activities.EditDistroList.SearchedCustomAdapter;
-import com.example.lifelineconnect.activities.PassdownMessage.CustomAdapter;
-import com.example.lifelineconnect.activities.PassdownMessage.ViewHolder;
 import com.example.lifelineconnect.utils.Constant;
 
 public class SendMessage extends BaseActivityClass {
@@ -73,6 +71,7 @@ public class SendMessage extends BaseActivityClass {
 	// Recording audio;
 	private MediaRecorder recorder = null;
 	String filePath = "";
+	String RectLength = "";
 	MediaPlayer mediaPlayer;
 	MyCountDownTimer timer;
 	MyCountDownTimer1 timer1;
@@ -139,7 +138,7 @@ public class SendMessage extends BaseActivityClass {
 		btnInfo = (Button) findViewById(R.id.btninfo);
 		btnClose = (Button) findViewById(R.id.btnclose);
 		txtInfo = (TextView) findViewById(R.id.txtinfo);
-		txtInfo.setText(Constant.SendMessageInfo);
+		txtInfo.setText("" + Constant.SendMessageInfo);
 
 		btnSearch = (Button) findViewById(R.id.btnsearch);
 		editName = (EditText) findViewById(R.id.editname);
@@ -172,6 +171,10 @@ public class SendMessage extends BaseActivityClass {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(editName.getWindowToken(), 0);
+				imm.hideSoftInputFromWindow(editmsgtag.getWindowToken(), 0);
+
 				final String sreachedString = editName.getText().toString()
 						.trim();
 				if (sreachedString.length() > 2) {
@@ -380,16 +383,19 @@ public class SendMessage extends BaseActivityClass {
 				if (filePath.length() > 0) {
 					if (isOnline()) {
 						if (layoutDistro.getVisibility() == View.GONE) {
-							if(memberUserID.length()>0){
-							replyWithVoice(msg, false, filePath);
-							}
-							else{
+							if (memberUserID.length() > 0) {
+								replyWithVoice(msg, false, filePath);
+								// uploadUserPhoto(new File(filePath));
+								// uploadAudio();
+							} else {
 								Toast.makeText(getApplicationContext(),
-										"Select atleast one member.", Toast.LENGTH_SHORT)
-										.show();
+										"Select atleast one member.",
+										Toast.LENGTH_SHORT).show();
 							}
 						} else {
 							replyWithVoice(msg, true, filePath);
+							// uploadUserPhoto(new File(filePath));
+							// uploadAudio();
 						}
 					} else {
 						Toast.makeText(getApplicationContext(),
@@ -449,8 +455,10 @@ public class SendMessage extends BaseActivityClass {
 
 	public void replyWithVoice(final String message,
 			final boolean flagDistrolist, final String filePath) {
+
 		progressDialog = ProgressDialog.show(SendMessage.this, null,
 				"Loading...	", true, false);
+
 		Thread t = new Thread(new Runnable() {
 
 			@Override
@@ -466,27 +474,27 @@ public class SendMessage extends BaseActivityClass {
 				}
 
 				try {
-
 					HttpClient client = new DefaultHttpClient();
 					HttpResponse response = null;
-
-					HttpPost poster = new HttpPost(
-							Constant.sSiteUrl
-									+ "/desktopmodules/teamtalkapp/uploadmessage.aspx?os=android&User_ID="
-									+ LLCApplication.getUserId()
-									+ "&RecLength=5&PassDown="
-									+ LLCApplication.getCanSeeDownline()
-									+ "&PassTo=" + PassTo);
-
-					Log.i("PassTo", "" + PassTo);
+					Log.i("PassTo",
+							"" + PassTo + "\n" + LLCApplication.getUserId()
+									+ "\n" + filePath);
 					FileBody fbody = null;
 					MultipartEntity entity = new MultipartEntity(
 							HttpMultipartMode.BROWSER_COMPATIBLE);
 
 					File audio = new File(filePath);
 					fbody = new FileBody(audio, "audio/wav");
-					entity.addPart("file", fbody);
-					entity.addPart("msgtag", new StringBody(message));
+					entity.addPart("userfile", fbody);
+
+					String query = URLEncoder.encode(message, "UTF-8");
+					String url = Constant.sSiteUrl
+							+ "desktopmodules/teamtalkapp/uploadmessage.aspx?os=android&User_ID="
+							+ LLCApplication.getUserId() + "&RecLength="
+							+ RectLength + "&PassDown=1&PassTo=" + PassTo
+							+ "&msgtag=" + query;
+
+					HttpPost poster = new HttpPost(url);
 
 					poster.setEntity(entity);
 					response = client.execute(poster);
@@ -607,7 +615,7 @@ public class SendMessage extends BaseActivityClass {
 			file.mkdirs();
 		}
 
-		filePath = filepath + "/" + System.currentTimeMillis() + ".3gp";
+		filePath = file + "/" + System.currentTimeMillis() + ".3gp";
 		return filePath;
 	}
 
@@ -647,6 +655,7 @@ public class SendMessage extends BaseActivityClass {
 
 	@SuppressLint("NewApi")
 	private void stopRecording() {
+
 		if (null != recorder) {
 			recorder.stop();
 			recorder.reset();
@@ -663,6 +672,47 @@ public class SendMessage extends BaseActivityClass {
 		btnRecord.setAlpha(1.0f);
 		btnStop.setAlpha(0.5f);
 		btnPlay.setAlpha(1.0f);
+
+		if (mediaPlayer != null) {
+			mediaPlayer.reset();
+		}
+
+		mediaPlayer = new MediaPlayer();
+		try {
+			mediaPlayer.setDataSource(filePath);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mediaPlayer.prepare();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+
+			@Override
+			public void onPrepared(MediaPlayer mp) {
+				// TODO Auto-generated method stub
+				RectLength = "" + mediaPlayer.getDuration();
+				long timeInmillisec = Long.parseLong(RectLength);
+				long duration = timeInmillisec / 1000;
+				long hours = duration / 3600;
+				long minutes = (duration - hours * 3600) / 60;
+				long seconds = duration - (hours * 3600 + minutes * 60);
+
+				RectLength = "" + seconds;
+				Log.i("RectLength", "" + RectLength);
+			}
+		});
+
 	}
 
 	private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
@@ -749,6 +799,14 @@ public class SendMessage extends BaseActivityClass {
 		btnInfo.setEnabled(true);
 		relativeBack.setEnabled(true);
 		txtTag.setEnabled(true);
+		editmsgtag.setEnabled(true);
+		btnRecord.setEnabled(true);
+		btnStop.setEnabled(true);
+		btnPlay.setEnabled(true);
+		btnReply.setEnabled(true);
+		btnSearch.setEnabled(true);
+		layoutMessage.setEnabled(true);
+		layoutVoice.setEnabled(true);
 	}
 
 	protected void disableComponents() {
@@ -756,6 +814,14 @@ public class SendMessage extends BaseActivityClass {
 		btnInfo.setEnabled(false);
 		relativeBack.setEnabled(false);
 		txtTag.setEnabled(false);
+		editmsgtag.setEnabled(false);
+		btnRecord.setEnabled(false);
+		btnStop.setEnabled(false);
+		btnPlay.setEnabled(false);
+		btnReply.setEnabled(false);
+		btnSearch.setEnabled(false);
+		layoutMessage.setEnabled(false);
+		layoutVoice.setEnabled(false);
 	}
 
 	class CustomAdapter extends BaseAdapter {
@@ -883,7 +949,6 @@ public class SendMessage extends BaseActivityClass {
 			holder.img.setVisibility(View.GONE);
 			holder.name.setText("" + list.get(pos).get("FullName"));
 			holder.isdownline.setVisibility(View.GONE);
-
 
 			row.setOnClickListener(new OnClickListener() {
 

@@ -3,7 +3,6 @@ package com.example.lifelineconnect.activities;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,8 +14,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -296,6 +293,7 @@ public class Downline extends BaseActivityClass {
 							map.put("Stamp", "" + obj.getString("Stamp"));
 							map.put("Tags", "" + obj.getString("Tags"));
 							map.put("expanded", "0");
+							map.put("UserID", "" + obj.getString("UserID"));
 
 							LLCApplication.getVoicemailList().add(map);
 

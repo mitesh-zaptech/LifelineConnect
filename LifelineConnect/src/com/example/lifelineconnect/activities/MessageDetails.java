@@ -33,7 +33,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -619,6 +618,7 @@ public class MessageDetails extends Fragment {
 		}
 	}
 
+	@SuppressLint("DefaultLocale")
 	class CustomAdapter extends BaseAdapter {
 
 		ArrayList<HashMap<String, String>> locallist;
@@ -646,7 +646,7 @@ public class MessageDetails extends Fragment {
 			return 0;
 		}
 
-		@SuppressLint("NewApi")
+		@SuppressLint({ "NewApi", "DefaultLocale" })
 		@Override
 		public View getView(final int position, View convertview, ViewGroup arg2) {
 			// TODO Auto-generated method stub
@@ -766,6 +766,7 @@ public class MessageDetails extends Fragment {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public String callAPI(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 		String result = null;
