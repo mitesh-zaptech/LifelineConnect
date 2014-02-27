@@ -4,5 +4,12 @@
     <string name="app_name">Life LineConnect</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="co">Choose Option</string>
+
+    <string-array name="cc_array">
+        <item>Upline</item>
+        <item>Downline Distrolist</item>
+          <item>Individual list</item>
+    </string-array>
 
 </resources>

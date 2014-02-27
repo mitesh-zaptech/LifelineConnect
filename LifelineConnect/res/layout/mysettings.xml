@@ -62,11 +62,22 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/txtupline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="#fff"
+        android:textSize="15sp" />
+
     <RelativeLayout
         android:id="@+id/middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/r1"
+        android:layout_below="@+id/txtupline"
         android:layout_marginTop="10dp" >
 
         <ImageView

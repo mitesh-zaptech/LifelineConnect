@@ -42,7 +42,7 @@
             android:textSize="30sp" />
     </RelativeLayout>
 
-    <com.example.lifelineconnect.pulltorefresh.PullToRefreshView
+    <com.rmrdevelopment.lifelineconnect.pulltorefresh.PullToRefreshView
         xmlns:ptr="http://schemas.android.com/apk/res/com.example.lifelineconnect.activities"
         android:id="@+id/pull_refresh_list"
         android:layout_width="fill_parent"

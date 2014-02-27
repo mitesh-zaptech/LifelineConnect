@@ -80,14 +80,25 @@
             android:textColor="#fff"
             android:textSize="15sp" />
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/t1"
+            android:layout_marginTop="5dp"
+            android:entries="@array/cc_array"
+            android:gravity="center_vertical"
+            android:prompt="@string/co" />
+
         <LinearLayout
             android:id="@+id/r2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/t1"
+            android:layout_below="@+id/spinner"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:weightSum="2" >
 
             <LinearLayout
@@ -185,6 +196,21 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_rect"
                     android:text="Search"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutupline"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <TextView
+                    android:id="@+id/txtupline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your upline is: "
+                    android:textColor="#fff"
                     android:textSize="15sp" />
             </RelativeLayout>
         </RelativeLayout>
