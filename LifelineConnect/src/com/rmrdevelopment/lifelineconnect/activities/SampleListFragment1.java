@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 
 public class SampleListFragment1 extends Fragment {
 

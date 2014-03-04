@@ -10,6 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/topbar" >
+
+        <Button
+            android:id="@+id/btnhome"
+            android:layout_width="105dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/skyblue_rect"
+            android:text="Home"
+            android:textColor="#fff"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -24,11 +36,11 @@
         android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="45dp"
+        android:layout_below="@+id/nvg"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_below="@+id/nvg"
+        android:layout_marginTop="45dp"
         android:cacheColorHint="#00000000"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
         android:scrollbarAlwaysDrawVerticalTrack="true" />

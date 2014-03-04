@@ -65,6 +65,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
 import com.rmrdevelopment.lifelineconnect.utils.RestClient;
 
@@ -84,7 +85,7 @@ public class MessageDetails extends Fragment {
 	public static MediaPlayer mediaPlayer;
 	public static boolean updateProgress = false;
 	Handler hn;
-	
+
 	RelativeLayout relativeInfo;
 	TextView txtInfo;
 	Animation fade_in, fade_out;
@@ -146,7 +147,7 @@ public class MessageDetails extends Fragment {
 	@SuppressLint("NewApi")
 	private void init() {
 		// TODO Auto-generated method stub
-		
+
 		relativeBack = (RelativeLayout) getView().findViewById(R.id.relback);
 		btnreply = (Button) getView().findViewById(R.id.btnreply);
 		txtFrom = (TextView) getView().findViewById(R.id.txtfrom);
@@ -158,8 +159,8 @@ public class MessageDetails extends Fragment {
 		btnnext = (TextView) getView().findViewById(R.id.btnnext);
 		relativeMiddle = (RelativeLayout) getView().findViewById(R.id.middle);
 		listview = (ListView) getView().findViewById(R.id.lst);
-		
-		title = (TextView)  getView().findViewById(R.id.title);
+
+		title = (TextView) getView().findViewById(R.id.title);
 		title.setTypeface(Home.type);
 
 		relativeInfo = (RelativeLayout) getView().findViewById(R.id.infolayout);
@@ -201,7 +202,13 @@ public class MessageDetails extends Fragment {
 						// TODO Auto-generated method stub
 						if (isOnline()) {
 							SetMessageAsListened();
-							playAudio(position);
+							try {
+								playAudio(position);
+							} catch (Exception e) {
+								// TODO: handle exception
+								e.printStackTrace();
+							}
+
 						} else {
 							Toast.makeText(
 									getActivity().getApplicationContext(),
@@ -578,21 +585,26 @@ public class MessageDetails extends Fragment {
 										new Thread(new Runnable() {
 
 											public void run() {
-												while (mediaPlayer != null
-														&& mediaPlayer
-																.getCurrentPosition() < mediaPlayer
-																.getDuration()
-														&& updateProgress) {
-													progressBar
-															.setProgress(mediaPlayer
-																	.getCurrentPosition());
+												try {
+													while (mediaPlayer != null
+															&& mediaPlayer
+																	.getCurrentPosition() < mediaPlayer
+																	.getDuration()
+															&& updateProgress) {
+														progressBar
+																.setProgress(mediaPlayer
+																		.getCurrentPosition());
 
-													try {
-														Thread.sleep(1);
-													} catch (InterruptedException e) {
-														e.printStackTrace();
+														try {
+															Thread.sleep(1);
+														} catch (InterruptedException e) {
+															e.printStackTrace();
+														}
 													}
+												} catch (Exception e) {
+													// TODO: handle exception
 												}
+
 											}
 										}).start();
 									}

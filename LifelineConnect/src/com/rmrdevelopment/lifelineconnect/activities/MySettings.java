@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
@@ -50,6 +52,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
 
 public class MySettings extends BaseActivityClass {
@@ -60,6 +63,7 @@ public class MySettings extends BaseActivityClass {
 	Button btnCapture, btnSaveSettings;
 	ImageView img;
 	TextView txtUpline;
+	Button btnHome;
 
 	MySettings CameraActivity = null;
 	Uri imageUri = null;
@@ -76,6 +80,7 @@ public class MySettings extends BaseActivityClass {
 
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	DisplayImageOptions options;
+	boolean ifImageExists = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,7 @@ public class MySettings extends BaseActivityClass {
 		btnCapture = (Button) findViewById(R.id.btncapture);
 		btnSaveSettings = (Button) findViewById(R.id.btnsavesettings);
 		img = (ImageView) findViewById(R.id.img);
+		btnHome = (Button) findViewById(R.id.btnhome);
 
 		relativeInfo = (RelativeLayout) findViewById(R.id.infolayout);
 		btnInfo = (Button) findViewById(R.id.btninfo);
@@ -132,6 +138,9 @@ public class MySettings extends BaseActivityClass {
 						+ LLCApplication.getUserId() + ".thumb.jpg", img,
 				options);
 
+		imageExist(Constant.sSiteUrl + "DesktopModules/TeamTalkApp/Images/"
+				+ LLCApplication.getUserId() + ".thumb.jpg");
+
 		if (LLCApplication.getUplineName().length() > 0) {
 			txtUpline.setVisibility(View.VISIBLE);
 		} else {
@@ -141,6 +150,20 @@ public class MySettings extends BaseActivityClass {
 
 	private void clickEvents() {
 		// TODO Auto-generated method stub
+
+		btnHome.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MySettings.this,
+						HomeSlidingFragment.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				overridePendingTransition(R.anim.hold_top, R.anim.exit_in_left);
+			}
+		});
+
 		btnCapture.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -161,9 +184,15 @@ public class MySettings extends BaseActivityClass {
 						Log.i("camera_pathname", "" + camera_pathname);
 						uploadImage(camera_pathname);
 					} else {
-						Toast.makeText(getApplicationContext(),
-								"please capture an image", Toast.LENGTH_SHORT)
-								.show();
+						if (ifImageExists) {
+							finish();
+							overridePendingTransition(R.anim.hold_top,
+									R.anim.exit_in_left);
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"please capture an image",
+									Toast.LENGTH_SHORT).show();
+						}
 					}
 				} else {
 					Toast.makeText(getApplicationContext(),
@@ -204,6 +233,30 @@ public class MySettings extends BaseActivityClass {
 				overridePendingTransition(R.anim.hold_top, R.anim.exit_in_left);
 			}
 		});
+	}
+
+	private void imageExist(final String url) {
+		// TODO Auto-generated method stub
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					HttpURLConnection.setFollowRedirects(false);
+					// note : you may also need
+					// HttpURLConnection.setInstanceFollowRedirects(false)
+					HttpURLConnection con = (HttpURLConnection) new URL(url)
+							.openConnection();
+					con.setRequestMethod("HEAD");
+					ifImageExists = (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+				} catch (Exception e) {
+					e.printStackTrace();
+					ifImageExists = false;
+				}
+			}
+		});
+		t.start();
 	}
 
 	@Override

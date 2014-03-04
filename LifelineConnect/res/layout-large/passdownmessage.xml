@@ -12,13 +12,16 @@
         android:background="@drawable/topbar" >
 
         <Button
-            android:id="@+id/btninfo"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:id="@+id/btnhome"
+            android:layout_width="105dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
-            android:background="@drawable/info50" />
+            android:background="@drawable/skyblue_rect"
+            android:text="Home"
+            android:textColor="#fff"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -46,19 +49,58 @@
             android:text="Passdown Message"
             android:textColor="#009cab"
             android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btninfo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/info50" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/r1"
         android:layout_margin="15dp" >
+
+        <RelativeLayout
+            android:id="@+id/layoutIndividual"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:visibility="gone" >
+
+            <EditText
+                android:id="@+id/editname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/white_rect"
+                android:hint="Search by Last Name or LIFE#"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="true"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnsearch"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_below="@+id/editname"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_rect"
+                android:text="Search"
+                android:textSize="23sp" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/txttag"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_below="@+id/layoutIndividual"
             android:background="@drawable/white_border"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
@@ -149,6 +191,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:listSelector="#00000000" >
+            </ListView>
+
+            <ListView
+                android:id="@+id/searchlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:listSelector="#00000000"
+                android:visibility="gone" >
             </ListView>
         </RelativeLayout>
 

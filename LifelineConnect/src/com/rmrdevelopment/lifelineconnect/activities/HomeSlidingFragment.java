@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.rmrdevelopment.lifelineconnect.R;
 
 public class HomeSlidingFragment extends BaseActivity1 {
 

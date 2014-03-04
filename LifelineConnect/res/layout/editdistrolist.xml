@@ -10,6 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/topbar" >
+
+        <Button
+            android:id="@+id/btnhome"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/skyblue_rect"
+            android:text="Home"
+            android:textColor="#fff"
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -162,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Member In the Distribution List." />
+                    android:text="Members In the Distribution List." />
             </RelativeLayout>
 
             <ListView

@@ -27,6 +27,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
 
 public class Login extends BaseActivityClass {

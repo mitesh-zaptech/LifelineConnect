@@ -42,6 +42,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.rmrdevelopment.lifelineconnect.pulltorefresh.PullToRefreshView;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
@@ -699,6 +700,7 @@ public class Downline extends BaseActivityClass {
 					.findViewById(R.id.layoutplus);
 			final Button btnplay = (Button) row.findViewById(R.id.btnplay_);
 			final Button btnPlus = (Button) row.findViewById(R.id.btnplus);
+			final Button btnDelete = (Button) row.findViewById(R.id.btndelete);
 
 			TextView txtDelete = (TextView) row.findViewById(R.id.txtdelete);
 			TextView txtArchive = (TextView) row.findViewById(R.id.txtarchive);
@@ -902,7 +904,7 @@ public class Downline extends BaseActivityClass {
 				}
 			});
 
-			txtDelete.setOnClickListener(new OnClickListener() {
+			btnDelete.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View arg0) {

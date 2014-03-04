@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.utils.DataBaseManager;
 
 public class Splash extends Activity {
@@ -75,7 +76,8 @@ public class Splash extends Activity {
 					}
 
 					if (LLCApplication.getUserloggedin() == 1) {
-						Intent intent = new Intent(Splash.this, HomeSlidingFragment.class);
+						Intent intent = new Intent(Splash.this,
+								HomeSlidingFragment.class);
 						startActivity(intent);
 						overridePendingTransition(R.anim.enter_from_left,
 								R.anim.hold_bottom);

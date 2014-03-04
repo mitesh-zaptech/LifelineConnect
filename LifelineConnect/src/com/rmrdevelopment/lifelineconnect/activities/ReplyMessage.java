@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -44,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
 
 public class ReplyMessage extends BaseActivityClass {
@@ -57,7 +59,7 @@ public class ReplyMessage extends BaseActivityClass {
 	TextView txtVoice, txtMessage, txtRecording, txtSec;
 	EditText editmsgtag;
 	ProgressBar progressBar;
-	Button btnReply, btnCancel, btnRecord, btnStop, btnPlay;
+	Button btnReply, btnCancel, btnRecord, btnStop, btnPlay,btnHome;
 	int position;
 
 	// Recording audio;
@@ -96,6 +98,7 @@ public class ReplyMessage extends BaseActivityClass {
 		relativeBack = (RelativeLayout) findViewById(R.id.relback);
 		title = (TextView) findViewById(R.id.title);
 		title.setTypeface(type);
+		btnHome = (Button) findViewById(R.id.btnhome);
 
 		relativeProgress = (RelativeLayout) findViewById(R.id.r4);
 		layoutAudio = (LinearLayout) findViewById(R.id.layoutAudio);
@@ -135,6 +138,19 @@ public class ReplyMessage extends BaseActivityClass {
 
 	private void clickEvents() {
 		// TODO Auto-generated method stub
+		btnHome.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(ReplyMessage.this,
+						HomeSlidingFragment.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				overridePendingTransition(R.anim.hold_top, R.anim.exit_in_left);
+			}
+		});
+		
 		btnInfo.setOnClickListener(new OnClickListener() {
 
 			@Override

@@ -262,9 +262,19 @@
                     android:id="@+id/btnplay_"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/play_icon" />
+
+                <Button
+                    android:id="@+id/btndelete"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/btnplay_"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/play_icon" />
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/btndelete_white" />
 
                 <RelativeLayout
                     android:id="@+id/layoutplus"

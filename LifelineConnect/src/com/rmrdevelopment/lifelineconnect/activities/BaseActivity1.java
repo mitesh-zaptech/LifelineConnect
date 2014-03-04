@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.rmrdevelopment.lifelineconnect.R;
 
 public class BaseActivity1 extends SlidingFragmentActivity {
 

@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
+import com.rmrdevelopment.lifelineconnect.R;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
 
 public class EditDistroList extends BaseActivityClass {
@@ -43,7 +45,7 @@ public class EditDistroList extends BaseActivityClass {
 	Typeface type;
 	String ListID = "", listName = "", memberUserID = "";
 	int position;
-	Button btnSave, btnDelete, btnSearch, btnCancel, btnAddMember;
+	Button btnSave, btnDelete, btnSearch, btnCancel, btnAddMember,btnHome;
 	EditText editName, txtName;
 	ToggleButton toggleButtonAdd;
 	ListView listview, searchedListview;
@@ -91,6 +93,8 @@ public class EditDistroList extends BaseActivityClass {
 		listview = (ListView) findViewById(R.id.lst);
 		searchedListview = (ListView) findViewById(R.id.searchlist);
 		relativeList = (RelativeLayout) findViewById(R.id.listlayout);
+		
+		btnHome = (Button) findViewById(R.id.btnhome);
 
 		relativeInfo = (RelativeLayout) findViewById(R.id.infolayout);
 		btnInfo = (Button) findViewById(R.id.btninfo);
@@ -129,6 +133,19 @@ public class EditDistroList extends BaseActivityClass {
 	private void clickEvents() {
 		// TODO Auto-generated method stub
 
+		btnHome.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(EditDistroList.this,
+						HomeSlidingFragment.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				overridePendingTransition(R.anim.hold_top, R.anim.exit_in_left);
+			}
+		});
+		
 		btnInfo.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -551,7 +568,7 @@ public class EditDistroList extends BaseActivityClass {
 					// TODO Auto-generated method stub
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							context);
-					builder.setMessage("Are you sure you want to delete this member?");
+					builder.setMessage("Are you sure you want to delete this Member?");
 					builder.setCancelable(false);
 					builder.setPositiveButton("Yes",
 							new DialogInterface.OnClickListener() {
@@ -842,7 +859,7 @@ public class EditDistroList extends BaseActivityClass {
 					if (status == 1) {
 						LLCApplication.setFlagRefresh(true);
 						Toast.makeText(getApplicationContext(),
-								"DistroName updated successfully.",
+								"Distrolist updated successfully.",
 								Toast.LENGTH_SHORT).show();
 						finish();
 						overridePendingTransition(R.anim.hold_top,
