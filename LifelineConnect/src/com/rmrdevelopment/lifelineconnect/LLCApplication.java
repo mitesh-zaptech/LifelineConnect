@@ -13,6 +13,7 @@ public class LLCApplication extends Application {
 	public static ArrayList<HashMap<String, String>> DistroMembersLists = new ArrayList<HashMap<String, String>>();
 	public static ArrayList<HashMap<String, String>> WireSearchUsers = new ArrayList<HashMap<String, String>>();
 
+	public static String speaker = "1";
 	public static String username = "";
 	public static String password = "";
 	public static int remember = 0;
@@ -26,6 +27,24 @@ public class LLCApplication extends Application {
 	public static String countMessagesUpline = "";
 	public static int position;
 	public static boolean flagRefresh = false;
+	
+	public static int currentDownlinePosition;
+	
+	public static String getSpeaker() {
+		return speaker;
+	}
+
+	public static void setSpeaker(String speaker) {
+		LLCApplication.speaker = speaker;
+	}
+
+	public static int getCurrentDownlinePosition() {
+		return currentDownlinePosition;
+	}
+
+	public static void setCurrentDownlinePosition(int currentDownlinePosition) {
+		LLCApplication.currentDownlinePosition = currentDownlinePosition;
+	}
 
 	public static ArrayList<HashMap<String, String>> getWireSearchUsers() {
 		return WireSearchUsers;

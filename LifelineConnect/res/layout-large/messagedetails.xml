@@ -151,10 +151,18 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp" >
 
+             <Button
+                android:id="@+id/btnSpeaker"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/headphone" />
+             
             <Button
                 android:id="@+id/btnplay"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
+                 android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/btnSpeaker"
                 android:background="@drawable/play_icon" />
 
             <Button

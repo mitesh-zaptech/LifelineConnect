@@ -68,6 +68,8 @@ public class Downline extends BaseActivityClass {
 	Animation fade_in, fade_out;
 	Button btnInfo, btnClose;
 
+	AudioManager audioManager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -295,6 +297,11 @@ public class Downline extends BaseActivityClass {
 							map.put("Tags", "" + obj.getString("Tags"));
 							map.put("expanded", "0");
 							map.put("UserID", "" + obj.getString("UserID"));
+
+							if (tabValue.equals("2")) {
+								map.put("CanPassUp",
+										"" + obj.getString("CanPassUp"));
+							}
 
 							LLCApplication.getVoicemailList().add(map);
 
@@ -1067,6 +1074,8 @@ public class Downline extends BaseActivityClass {
 				@Override
 				public void onClick(View arg0) {
 					if (btnInfo.isEnabled()) {
+
+						LLCApplication.setCurrentDownlinePosition(position);
 						Intent intent = new Intent(Downline.this,
 								MessageDetailsSlidingFragment.class);
 						intent.putExtra("pos", position);
@@ -1149,12 +1158,23 @@ public class Downline extends BaseActivityClass {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
-		if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-			mediaPlayer.pause();
+
+		// WHEN THE SCREEN IS ABOUT TO TURN OFF
+		if (ScreenReceiver.wasScreenOn) {
+			// THIS IS THE CASE WHEN ONPAUSE() IS CALLED BY THE SYSTEM DUE TO A
+			// SCREEN STATE CHANGE
+			System.out.println("SCREEN TURNED OFF");
+		} else {
+			// THIS IS WHEN ONPAUSE() IS CALLED WHEN THE SCREEN STATE HAS NOT
+			// CHANGED
+			if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+				mediaPlayer.pause();
+			}
 		}
 		super.onPause();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -1181,6 +1201,20 @@ public class Downline extends BaseActivityClass {
 				}
 			}
 		}, 100);
+
+		if (LLCApplication.getSpeaker().equals("1")) {
+			audioManager = (AudioManager) context
+					.getSystemService(Context.AUDIO_SERVICE);
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			audioManager.setWiredHeadsetOn(false);
+			audioManager.setSpeakerphoneOn(true);
+		} else {
+			audioManager = (AudioManager) context
+					.getSystemService(Context.AUDIO_SERVICE);
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			audioManager.setWiredHeadsetOn(true);
+			audioManager.setSpeakerphoneOn(false);
+		}
 	}
 
 	protected void SetMessageAsListened() {

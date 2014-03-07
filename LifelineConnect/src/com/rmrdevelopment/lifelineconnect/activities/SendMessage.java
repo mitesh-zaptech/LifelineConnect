@@ -503,7 +503,7 @@ public class SendMessage extends BaseActivityClass {
 						} else if (layoutDistro.getVisibility() == View.VISIBLE) {
 							replyWithVoice(msg, true, filePath);
 						} else {
-							//for upline:
+							// for upline:
 							replyWithVoice(msg, true, filePath);
 						}
 					} else {
@@ -1146,8 +1146,7 @@ public class SendMessage extends BaseActivityClass {
 									"" + obj.getString("NumContacts"));
 							map.put("checked", "0");
 
-							if (map.get("Description").length() > 0)
-								LLCApplication.getDistroLists().add(map);
+							LLCApplication.getDistroLists().add(map);
 
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block

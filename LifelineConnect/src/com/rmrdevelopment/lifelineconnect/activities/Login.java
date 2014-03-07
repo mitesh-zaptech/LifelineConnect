@@ -77,10 +77,6 @@ public class Login extends BaseActivityClass {
 		fade_out = new AlphaAnimation(1.0f, 0.0f);
 		fade_out.setDuration(1000);
 
-		/*
-		 * editUsername.setText("chris.brady"); editPass.setText("Machine444");
-		 */
-
 	}
 
 	private void clickEvents() {
@@ -304,6 +300,7 @@ public class Login extends BaseActivityClass {
 								"" + LLCApplication.getCountMessagesDownline());
 						values.put("countMessagesUpline",
 								"" + LLCApplication.getCountMessagesUpline());
+						
 						Splash.db.update("user", values, "pk=1");
 
 						Intent intent = new Intent(Login.this,

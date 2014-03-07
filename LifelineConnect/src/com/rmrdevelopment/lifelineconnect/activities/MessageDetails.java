@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -73,7 +74,7 @@ import com.rmrdevelopment.lifelineconnect.utils.RestClient;
 public class MessageDetails extends Fragment {
 
 	FragmentManager fm;
-	Button btnreply, btnplay, btnpause, btnTasks;
+	Button btnreply, btnplay, btnpause, btnTasks, btnSpeaker;
 	TextView btnprev, btnnext;
 	TextView txtFrom, txtSent, title;
 	RelativeLayout relativeBack;
@@ -92,7 +93,7 @@ public class MessageDetails extends Fragment {
 	Button btnInfo, btnClose;
 
 	// BaseActivity:
-	Context context = getActivity();
+	Context context;
 	String response;
 	JSONObject json_str;
 	String Valid;
@@ -101,6 +102,8 @@ public class MessageDetails extends Fragment {
 	JSONArray array = null;
 	ProgressDialog progressDialog;
 
+	AudioManager audioManager;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -108,11 +111,13 @@ public class MessageDetails extends Fragment {
 		return inflater.inflate(R.layout.messagedetails, container, false);
 	}
 
+	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
+		context = getActivity();
 		Bundle extras = getActivity().getIntent().getExtras();
 		if (extras != null) {
 			position = extras.getInt("pos");
@@ -144,16 +149,17 @@ public class MessageDetails extends Fragment {
 		clickEvents();
 	}
 
+	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	private void init() {
 		// TODO Auto-generated method stub
-
 		relativeBack = (RelativeLayout) getView().findViewById(R.id.relback);
 		btnreply = (Button) getView().findViewById(R.id.btnreply);
 		txtFrom = (TextView) getView().findViewById(R.id.txtfrom);
 		txtSent = (TextView) getView().findViewById(R.id.txtsent);
 		btnplay = (Button) getView().findViewById(R.id.btnplay);
 		btnpause = (Button) getView().findViewById(R.id.btnpause);
+		btnSpeaker = (Button) getView().findViewById(R.id.btnSpeaker);
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBar1);
 		btnprev = (TextView) getView().findViewById(R.id.btnprev);
 		btnnext = (TextView) getView().findViewById(R.id.btnnext);
@@ -180,12 +186,47 @@ public class MessageDetails extends Fragment {
 		animFromLeft = AnimationUtils.loadAnimation(getActivity()
 				.getApplicationContext(), R.anim.enter_from_left);
 
+		if (LLCApplication.getVoicemailList()
+				.get(LLCApplication.getCurrentDownlinePosition())
+				.get("CanReply").equals("false")
+				|| LLCApplication.getVoicemailList()
+						.get(LLCApplication.getCurrentDownlinePosition())
+						.get("CanReply").equals("0")) {
+			btnreply.setVisibility(View.GONE);
+			/*
+			 * btnreply.setEnabled(false); btnreply.setAlpha(0.5f);
+			 */
+		} else {
+			btnreply.setVisibility(View.VISIBLE);
+			/*
+			 * btnreply.setEnabled(true); btnreply.setAlpha(1.0f);
+			 */
+		}
+
 		if (position == 0) {
 			btnprev.setEnabled(false);
 		}
 
 		if (position == LLCApplication.getVoicemailList().size() - 1) {
 			btnnext.setEnabled(false);
+		}
+
+		if (LLCApplication.getSpeaker().equals("1")) {
+			audioManager = (AudioManager) context
+					.getSystemService(Context.AUDIO_SERVICE);
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			audioManager.setWiredHeadsetOn(false);
+			audioManager.setSpeakerphoneOn(true);
+
+			btnSpeaker.setBackgroundResource(R.drawable.headphone);
+		} else {
+			audioManager = (AudioManager) context
+					.getSystemService(Context.AUDIO_SERVICE);
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			audioManager.setWiredHeadsetOn(true);
+			audioManager.setSpeakerphoneOn(false);
+
+			btnSpeaker.setBackgroundResource(R.drawable.speaker);
 		}
 
 		hn = new Handler();
@@ -224,6 +265,38 @@ public class MessageDetails extends Fragment {
 
 	private void clickEvents() {
 		// TODO Auto-generated method stub
+
+		btnSpeaker.setOnClickListener(new OnClickListener() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (LLCApplication.getSpeaker().equals("1")) {
+					LLCApplication.setSpeaker("0");
+					btnSpeaker.setBackgroundResource(R.drawable.speaker);
+
+					audioManager = (AudioManager) context
+							.getSystemService(Context.AUDIO_SERVICE);
+					audioManager.setMode(AudioManager.MODE_IN_CALL);
+					audioManager.setWiredHeadsetOn(true);
+					audioManager.setSpeakerphoneOn(false);
+				} else {
+					LLCApplication.setSpeaker("1");
+					btnSpeaker.setBackgroundResource(R.drawable.headphone);
+
+					audioManager = (AudioManager) context
+							.getSystemService(Context.AUDIO_SERVICE);
+					audioManager.setMode(AudioManager.MODE_IN_CALL);
+					audioManager.setWiredHeadsetOn(false);
+					audioManager.setSpeakerphoneOn(true);
+				}
+
+				ContentValues values = new ContentValues();
+				values.put("speaker", "" + LLCApplication.getSpeaker());
+				Splash.db.update("user", values, "pk=1");
+			}
+		});
 
 		btnTasks.setOnClickListener(new OnClickListener() {
 
@@ -552,7 +625,7 @@ public class MessageDetails extends Fragment {
 					try {
 						mediaPlayer.setDataSource(streamPath);
 						mediaPlayer
-								.setAudioStreamType(AudioManager.STREAM_MUSIC);
+								.setAudioStreamType(AudioManager.MODE_IN_CALL);
 						mediaPlayer.prepare();
 					} catch (IllegalArgumentException e) {
 						// TODO Auto-generated catch block
@@ -760,10 +833,19 @@ public class MessageDetails extends Fragment {
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
-		if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-			mediaPlayer.pause();
-			updateProgress = false;
-			btnplay.setBackgroundResource(R.drawable.play_icon);
+		// WHEN THE SCREEN IS ABOUT TO TURN OFF
+		if (ScreenReceiver.wasScreenOn) {
+			// THIS IS THE CASE WHEN ONPAUSE() IS CALLED BY THE SYSTEM DUE TO A
+			// SCREEN STATE CHANGE
+			System.out.println("SCREEN TURNED OFF");
+		} else {
+			// THIS IS WHEN ONPAUSE() IS CALLED WHEN THE SCREEN STATE HAS NOT
+			// CHANGED
+			if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+				mediaPlayer.pause();
+				updateProgress = false;
+				btnplay.setBackgroundResource(R.drawable.play_icon);
+			}
 		}
 		super.onPause();
 	}

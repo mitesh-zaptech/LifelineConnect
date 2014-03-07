@@ -72,6 +72,9 @@ public class Splash extends Activity {
 							LLCApplication
 									.setCountMessagesUpline(crsr.getString(crsr
 											.getColumnIndex("countMessagesUpline")));
+							LLCApplication
+							.setSpeaker(crsr.getString(crsr
+									.getColumnIndex("speaker")));
 						}
 					}
 

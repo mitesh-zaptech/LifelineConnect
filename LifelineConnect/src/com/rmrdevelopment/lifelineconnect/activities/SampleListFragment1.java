@@ -3,6 +3,7 @@ package com.rmrdevelopment.lifelineconnect.activities;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -46,12 +47,23 @@ public class SampleListFragment1 extends Fragment {
 
 		type = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
 		// txtTitle.setTypeface(type);
-
-		String[] names = { "Settings",
-				"logged in as " + LLCApplication.getUsername(),
-				"My Distribution Lists", "My Settings", "Help",
-				"Privacy Policy", "Terms of Service", "Close" };
-		listview.setAdapter(new CustomAdapter(names));
+		
+		if(LLCApplication.getCanSeeDownline().equals("0") || 
+				LLCApplication.getCanSeeDownline().equals("false")){
+			String[] names2 = { "Settings",
+					"logged in as " + LLCApplication.getUsername(),
+					 "My Settings", "Help",
+					"Privacy Policy", "Terms of Service", "Close" };
+			listview.setAdapter(new CustomAdapter(names2));
+		}
+		else{
+			String[] names1 = { "Settings",
+					"logged in as " + LLCApplication.getUsername(),
+					"My Distribution Lists", "My Settings", "Help",
+					"Privacy Policy", "Terms of Service", "Close" };
+			listview.setAdapter(new CustomAdapter(names1));
+		}
+		
 	}
 
 	class CustomAdapter extends BaseAdapter {
@@ -81,6 +93,7 @@ public class SampleListFragment1 extends Fragment {
 			return 0;
 		}
 
+		@SuppressLint("NewApi")
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
 			// TODO Auto-generated method stub
@@ -105,39 +118,90 @@ public class SampleListFragment1 extends Fragment {
 					case 1:
 						break;
 					case 2:
-						Intent intent2 = new Intent(getActivity(),
-								DistroList.class);
-						getActivity().startActivity(intent2);
-						getActivity().overridePendingTransition(
-								R.anim.enter_from_left, R.anim.hold_bottom);
+						if(LLCApplication.getCanSeeDownline().equals("0") || 
+								LLCApplication.getCanSeeDownline().equals("false")){
+							Intent intent6 = new Intent(getActivity(),
+									MySettings.class);
+							getActivity().startActivity(intent6);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						else{
+							Intent intent2 = new Intent(getActivity(),
+									DistroList.class);
+							getActivity().startActivity(intent2);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						
 						break;
 					case 3:
-						Intent intent6 = new Intent(getActivity(),
-								MySettings.class);
-						getActivity().startActivity(intent6);
-						getActivity().overridePendingTransition(
-								R.anim.enter_from_left, R.anim.hold_bottom);
+						if(LLCApplication.getCanSeeDownline().equals("0") || 
+								LLCApplication.getCanSeeDownline().equals("false")){
+							Intent intent3 = new Intent(getActivity(), Help.class);
+							intent3.putExtra("pos",0);
+							getActivity().startActivity(intent3);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						else{
+							Intent intent6 = new Intent(getActivity(),
+									MySettings.class);
+							getActivity().startActivity(intent6);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						
 						break;
 					case 4:
-						Intent intent3 = new Intent(getActivity(), Help.class);
-						intent3.putExtra("pos",0);
-						getActivity().startActivity(intent3);
-						getActivity().overridePendingTransition(
-								R.anim.enter_from_left, R.anim.hold_bottom);
+						if(LLCApplication.getCanSeeDownline().equals("0") || 
+								LLCApplication.getCanSeeDownline().equals("false")){
+							Intent intent4 = new Intent(getActivity(), Help.class);
+							intent4.putExtra("pos",1);
+							getActivity().startActivity(intent4);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						else{
+							Intent intent3 = new Intent(getActivity(), Help.class);
+							intent3.putExtra("pos",0);
+							getActivity().startActivity(intent3);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+							
+						
 						break;
 					case 5:
-						Intent intent4 = new Intent(getActivity(), Help.class);
-						intent4.putExtra("pos",1);
-						getActivity().startActivity(intent4);
-						getActivity().overridePendingTransition(
-								R.anim.enter_from_left, R.anim.hold_bottom);
+						if(LLCApplication.getCanSeeDownline().equals("0") || 
+								LLCApplication.getCanSeeDownline().equals("false")){
+							Intent intent5 = new Intent(getActivity(), Help.class);
+							intent5.putExtra("pos",2);
+							getActivity().startActivity(intent5);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						else{
+							Intent intent4 = new Intent(getActivity(), Help.class);
+							intent4.putExtra("pos",1);
+							getActivity().startActivity(intent4);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
 						break;
 					case 6:
-						Intent intent5 = new Intent(getActivity(), Help.class);
-						intent5.putExtra("pos",2);
-						getActivity().startActivity(intent5);
-						getActivity().overridePendingTransition(
-								R.anim.enter_from_left, R.anim.hold_bottom);
+						if(LLCApplication.getCanSeeDownline().equals("0") || 
+								LLCApplication.getCanSeeDownline().equals("false")){
+							BaseActivityClass.baseAct1.toggle();
+						}
+						else{
+							Intent intent5 = new Intent(getActivity(), Help.class);
+							intent5.putExtra("pos",2);
+							getActivity().startActivity(intent5);
+							getActivity().overridePendingTransition(
+									R.anim.enter_from_left, R.anim.hold_bottom);
+						}
+						
 						break;
 					case 7:
 						BaseActivityClass.baseAct1.toggle();

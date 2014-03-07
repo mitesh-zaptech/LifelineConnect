@@ -82,16 +82,67 @@ public class SampleListFragment extends Fragment {
 		type = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
 		// txtTitle.setTypeface(type);
 
-		String[] names = { "Pass Up", "Pass Down", "Reply", "Individual Pass",
-				"Mark as New", "Archieve", "Delete", "Close" };
+		/*
+		 * if (LLCApplication.getVoicemailList()
+		 * .get(LLCApplication.getCurrentDownlinePosition())
+		 * .get("CanReply").equals("false")) { String[] names1 = { "Pass Up",
+		 * "Pass Down", "Individual Pass", "Mark as New", "Archieve", "Delete",
+		 * "Close" }; listview.setAdapter(new CustomAdapter(names1)); } else {
+		 * String[] names2 = { "Pass Up", "Pass Down", "Reply",
+		 * "Individual Pass", "Mark as New", "Archieve", "Delete", "Close" };
+		 * listview.setAdapter(new CustomAdapter(names2)); }
+		 */
+
+		ArrayList<String> names = new ArrayList<String>();
+
+		if (LLCApplication.getVoicemailList()
+				.get(LLCApplication.getCurrentDownlinePosition())
+				.get("CanPassUp") != null) {
+			if (LLCApplication.getVoicemailList()
+					.get(LLCApplication.getCurrentDownlinePosition())
+					.get("CanPassUp").equals("true")
+					|| LLCApplication.getVoicemailList()
+							.get(LLCApplication.getCurrentDownlinePosition())
+							.get("CanPassUp").equals("1")) {
+				names.add("Pass Up");
+			}
+		} else {
+			names.add("Pass Up");
+		}
+
+		if (LLCApplication.getVoicemailList()
+				.get(LLCApplication.getCurrentDownlinePosition())
+				.get("CanPassDown").equals("true")
+				|| LLCApplication.getVoicemailList()
+						.get(LLCApplication.getCurrentDownlinePosition())
+						.get("CanPassDown").equals("1")) {
+			names.add("Pass Down");
+		}
+
+		if (LLCApplication.getVoicemailList()
+				.get(LLCApplication.getCurrentDownlinePosition())
+				.get("CanReply").equals("true")
+				|| LLCApplication.getVoicemailList()
+						.get(LLCApplication.getCurrentDownlinePosition())
+						.get("CanReply").equals("1")) {
+			names.add("Reply");
+			names.add("Individual Pass");
+		}
+
+		names.add("Mark as New");
+		names.add("Archieve");
+		names.add("Delete");
+		names.add("Close");
+
 		listview.setAdapter(new CustomAdapter(names));
+
 	}
 
 	class CustomAdapter extends BaseAdapter {
 
-		String[] list;
+		ArrayList<String> list;
 
-		public CustomAdapter(String[] names) {
+		public CustomAdapter(ArrayList<String> names) {
 			// TODO Auto-generated constructor stub
 			list = names;
 		}
@@ -99,7 +150,7 @@ public class SampleListFragment extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return list.length;
+			return list.size();
 		}
 
 		@Override
@@ -114,6 +165,7 @@ public class SampleListFragment extends Fragment {
 			return 0;
 		}
 
+		@SuppressLint("NewApi")
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
 			// TODO Auto-generated method stub
@@ -124,15 +176,15 @@ public class SampleListFragment extends Fragment {
 			}
 
 			TextView txtName = (TextView) row.findViewById(R.id.name);
-			txtName.setText("" + list[position]);
+			txtName.setText("" + list.get(position));
 
 			row.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					switch (position) {
-					case 0:
+
+					if (list.get(position).equals("Pass Up")) {
 						Intent intent = new Intent(getActivity(),
 								PassdownMessage.class);
 						intent.putExtra("pos", LLCApplication.getPosition());
@@ -140,8 +192,7 @@ public class SampleListFragment extends Fragment {
 						startActivity(intent);
 						getActivity().overridePendingTransition(
 								R.anim.enter_from_left, R.anim.hold_bottom);
-						break;
-					case 1:
+					} else if (list.get(position).equals("Pass Down")) {
 						Intent intent1 = new Intent(getActivity(),
 								PassdownMessage.class);
 						intent1.putExtra("pos", LLCApplication.getPosition());
@@ -149,16 +200,14 @@ public class SampleListFragment extends Fragment {
 						startActivity(intent1);
 						getActivity().overridePendingTransition(
 								R.anim.enter_from_left, R.anim.hold_bottom);
-						break;
-					case 2:
+					} else if (list.get(position).equals("Reply")) {
 						Intent intent2 = new Intent(getActivity(),
 								ReplyMessage.class);
 						intent2.putExtra("pos", LLCApplication.getPosition());
 						getActivity().startActivity(intent2);
 						getActivity().overridePendingTransition(
 								R.anim.enter_from_left, R.anim.hold_bottom);
-						break;
-					case 3:
+					} else if (list.get(position).equals("Individual Pass")) {
 						Intent intent3 = new Intent(getActivity(),
 								PassdownMessage.class);
 						intent3.putExtra("pos", LLCApplication.getPosition());
@@ -166,8 +215,7 @@ public class SampleListFragment extends Fragment {
 						startActivity(intent3);
 						getActivity().overridePendingTransition(
 								R.anim.enter_from_left, R.anim.hold_bottom);
-						break;
-					case 4:
+					} else if (list.get(position).equals("Mark as New")) {
 						AlertDialog.Builder alert1 = new AlertDialog.Builder(
 								getActivity());
 						alert1.setTitle(Constant.Alert_Name);
@@ -203,8 +251,7 @@ public class SampleListFragment extends Fragment {
 								});
 						alert1.create();
 						alert1.show();
-						break;
-					case 5:
+					} else if (list.get(position).equals("Archieve")) {
 						AlertDialog.Builder alert = new AlertDialog.Builder(
 								getActivity());
 						alert.setTitle(Constant.Alert_Name);
@@ -241,8 +288,7 @@ public class SampleListFragment extends Fragment {
 								});
 						alert.create();
 						alert.show();
-						break;
-					case 6:
+					} else if (list.get(position).equals("Delete")) {
 						AlertDialog.Builder alert11 = new AlertDialog.Builder(
 								getActivity());
 						alert11.setTitle(Constant.Alert_Name);
@@ -279,13 +325,8 @@ public class SampleListFragment extends Fragment {
 								});
 						alert11.create();
 						alert11.show();
-						break;
-					case 7:
+					} else if (list.get(position).equals("Close")) {
 						BaseActivityClass.baseAct.toggle();
-						break;
-
-					default:
-						break;
 					}
 
 				}
@@ -293,7 +334,6 @@ public class SampleListFragment extends Fragment {
 
 			return row;
 		}
-
 	}
 
 	protected void DeleteMessage(final int position) {
