@@ -67,7 +67,7 @@ public class Downline extends BaseActivityClass {
 	TextView txtInfo;
 	Animation fade_in, fade_out;
 	Button btnInfo, btnClose;
-
+	
 	AudioManager audioManager;
 
 	@Override
@@ -1202,19 +1202,11 @@ public class Downline extends BaseActivityClass {
 			}
 		}, 100);
 
-		if (LLCApplication.getSpeaker().equals("1")) {
-			audioManager = (AudioManager) context
-					.getSystemService(Context.AUDIO_SERVICE);
-			audioManager.setMode(AudioManager.MODE_IN_CALL);
-			audioManager.setWiredHeadsetOn(false);
-			audioManager.setSpeakerphoneOn(true);
-		} else {
-			audioManager = (AudioManager) context
-					.getSystemService(Context.AUDIO_SERVICE);
-			audioManager.setMode(AudioManager.MODE_IN_CALL);
-			audioManager.setWiredHeadsetOn(true);
-			audioManager.setSpeakerphoneOn(false);
-		}
+		audioManager = (AudioManager) context
+				.getSystemService(Context.AUDIO_SERVICE);
+		audioManager.setMode(AudioManager.MODE_IN_CALL);
+		audioManager.setWiredHeadsetOn(false);
+		audioManager.setSpeakerphoneOn(true);
 	}
 
 	protected void SetMessageAsListened() {
