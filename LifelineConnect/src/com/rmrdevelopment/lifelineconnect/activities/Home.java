@@ -274,7 +274,7 @@ public class Home extends Fragment {
 
 								ContentValues values = new ContentValues();
 								values.put("userloggedin", "0");
-								Splash.db.update("user", values, "pk=1");
+								Splash.db.update("user", values, "pk=1",null);
 
 								android.os.Handler hn = new android.os.Handler();
 								hn.postDelayed(new Runnable() {

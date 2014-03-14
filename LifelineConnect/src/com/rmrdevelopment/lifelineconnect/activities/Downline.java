@@ -1075,6 +1075,11 @@ public class Downline extends BaseActivityClass {
 				public void onClick(View arg0) {
 					if (btnInfo.isEnabled()) {
 
+						if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+							mediaPlayer.pause();
+							btnplay.setBackgroundResource(R.drawable.play_icon);
+						}
+						
 						LLCApplication.setCurrentDownlinePosition(position);
 						Intent intent = new Intent(Downline.this,
 								MessageDetailsSlidingFragment.class);

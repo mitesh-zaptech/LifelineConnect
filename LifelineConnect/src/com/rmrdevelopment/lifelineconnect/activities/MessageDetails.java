@@ -294,7 +294,7 @@ public class MessageDetails extends Fragment {
 
 				ContentValues values = new ContentValues();
 				values.put("speaker", "" + LLCApplication.getSpeaker());
-				Splash.db.update("user", values, "pk=1");
+				Splash.db.update("user", values, "pk=1",null);
 			}
 		});
 
@@ -827,6 +827,14 @@ public class MessageDetails extends Fragment {
 		if (mediaPlayer != null) {
 			mediaPlayer.release();
 			mediaPlayer = null;
+		}
+		
+		if (audioManager != null) {
+			audioManager = (AudioManager) context
+					.getSystemService(Context.AUDIO_SERVICE);
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			audioManager.setWiredHeadsetOn(false);
+			audioManager.setSpeakerphoneOn(true);
 		}
 	}
 

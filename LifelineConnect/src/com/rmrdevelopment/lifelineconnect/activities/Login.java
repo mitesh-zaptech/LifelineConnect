@@ -301,7 +301,7 @@ public class Login extends BaseActivityClass {
 						values.put("countMessagesUpline",
 								"" + LLCApplication.getCountMessagesUpline());
 						
-						Splash.db.update("user", values, "pk=1");
+						Splash.db.update("user", values, "pk=1",null);
 
 						Intent intent = new Intent(Login.this,
 								HomeSlidingFragment.class);

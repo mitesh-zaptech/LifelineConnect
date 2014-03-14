@@ -52,7 +52,7 @@ public class PassdownMessage extends BaseActivityClass {
 	RelativeLayout relativeList, layoutIndividual;
 	ListView listview, searchedListview;
 	Button btnCancel;
-	TextView txtTag;
+	TextView txtTag,txtUpline;
 	String strtags = "";
 	String strIDs = "0";
 	String memberUserID = "";
@@ -98,6 +98,7 @@ public class PassdownMessage extends BaseActivityClass {
 		listview = (ListView) findViewById(R.id.lst);
 		btnCancel = (Button) findViewById(R.id.btncancel);
 		txtTag = (TextView) findViewById(R.id.txttag);
+		txtUpline = (TextView) findViewById(R.id.txtUpline);
 
 		relativeInfo = (RelativeLayout) findViewById(R.id.infolayout);
 		btnInfo = (Button) findViewById(R.id.btninfo);
@@ -138,18 +139,22 @@ public class PassdownMessage extends BaseActivityClass {
 			}
 			txtTag.setText("" + strtags);
 			layoutIndividual.setVisibility(View.GONE);
+			txtUpline.setVisibility(View.GONE);
 		} else if (msgType == 1) {
 			txtInfo.setText("" + Constant.passupMessageInfo);
 			title.setText("Pass Up Message");
 			msgStr = "Are you sure you want to passup this Message?";
 			txtTag.setVisibility(View.GONE);
 			layoutIndividual.setVisibility(View.GONE);
+			txtUpline.setVisibility(View.VISIBLE);
+			txtUpline.setText("Your upline is: " + LLCApplication.getUplineName());
 		} else if (msgType == 2) {
 			txtInfo.setText("" + Constant.IndividualPassInfo);
 			title.setText("Individual Pass Message");
 			msgStr = "Are you sure you want to pass individual this Message?";
 			txtTag.setVisibility(View.GONE);
 			layoutIndividual.setVisibility(View.VISIBLE);
+			txtUpline.setVisibility(View.GONE);
 		}
 
 		listview.setAdapter(new CustomAdapter(LLCApplication.getDistroLists()));

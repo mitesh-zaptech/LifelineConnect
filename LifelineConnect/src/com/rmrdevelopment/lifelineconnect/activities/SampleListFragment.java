@@ -126,6 +126,10 @@ public class SampleListFragment extends Fragment {
 						.get(LLCApplication.getCurrentDownlinePosition())
 						.get("CanReply").equals("1")) {
 			names.add("Reply");
+		}
+		
+		if (LLCApplication.getCanSeeDownline().equals("true")
+				|| LLCApplication.getCanSeeDownline().equals("1")) {
 			names.add("Individual Pass");
 		}
 

@@ -3,16 +3,18 @@ package com.rmrdevelopment.lifelineconnect.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Window;
 
 import com.rmrdevelopment.lifelineconnect.LLCApplication;
 import com.rmrdevelopment.lifelineconnect.R;
-import com.rmrdevelopment.lifelineconnect.utils.DataBaseManager;
+import com.rmrdevelopment.lifelineconnect.SQLiteHelper;
 
 public class Splash extends Activity {
 
-	public static DataBaseManager db;
+	SQLiteHelper helper;
+	public static SQLiteDatabase db = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,9 @@ public class Splash extends Activity {
 
 		setContentView(R.layout.activity_splash);
 
-		db = DataBaseManager.getDBAdapterInstance(getApplicationContext());
+		helper = new SQLiteHelper(this, "lifelineconnect.sqlite");
+		helper.createDatabase();
+		db = helper.openDatabase();
 
 		new Thread() {
 			public void run() {
@@ -34,7 +38,7 @@ public class Splash extends Activity {
 					}
 				} catch (InterruptedException e) {
 				} finally {
-					Cursor crsr = db.rawQuery("select * from user");
+					Cursor crsr = db.rawQuery("select * from user",null);
 					if (crsr != null) {
 						if (crsr.getCount() > 0) {
 							crsr.moveToFirst();
