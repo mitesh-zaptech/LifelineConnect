@@ -35,7 +35,7 @@
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/nvg"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -75,16 +75,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp" >
+            android:layout_marginTop="10dp" >
 
             <TextView
                 android:id="@+id/t1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="From:"
-                android:textColor="#00aadf"
+                android:textColor="@android:color/white"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/txtfrom"
@@ -102,16 +102,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/r1"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp" >
+            android:layout_marginTop="10dp" >
 
             <TextView
                 android:id="@+id/t2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sent:"
-                android:textColor="#00aadf"
+                android:textColor="@android:color/white"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/txtsent"
@@ -119,9 +119,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/t2"
-                android:textColor="#00aadf"
+                android:textColor="@android:color/white"
                 android:textSize="23sp" />
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonAddFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/r2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/star_plus" />
+
+        <Button
+            android:id="@+id/buttonRemoveFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/r2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/star_minus"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/r3"
@@ -151,35 +170,59 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp" >
 
-             <Button
+            <Button
                 android:id="@+id/btnSpeaker"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:background="@drawable/headphone" />
-             
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:text="Switch Audio Source"
+                android:textStyle="italic"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blue_rect" />
+
             <Button
                 android:id="@+id/btnplay"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/btnSpeaker"
-                android:background="@drawable/play_icon" />
-
-            <Button
-                android:id="@+id/btnpause"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/btnplay"
-                android:background="@drawable/btnstop" />
-
+                android:layout_below="@+id/btnSpeaker"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:text="Play"
+                android:textStyle="italic"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blue_rect" />
+            
             <Button
                 android:id="@+id/btnreply"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/btnpause"
-                android:background="@drawable/btnreply" />
+                android:layout_below="@+id/btnplay"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:text="Respond to Message"
+                android:textStyle="italic"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blue_rect" />
+
+            <Button
+                android:id="@+id/btnDeleteMsg"
+                android:layout_below="@+id/btnreply"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:text="Delete"
+                android:textStyle="italic"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/delet_btb_bg" />
         </RelativeLayout>
 
         <TextView
@@ -189,10 +232,10 @@
             android:layout_below="@+id/r4"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="Message tag:"
+            android:text="Message tags:"
             android:textColor="#00aadf"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="italic" />
 
         <ListView
             android:id="@+id/lst"

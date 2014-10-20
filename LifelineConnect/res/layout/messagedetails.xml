@@ -14,14 +14,14 @@
         <Button
             android:id="@+id/btnTasks"
             android:layout_width="70dp"
-            android:textColor="#fff"
-            android:background="@drawable/skyblue_rect"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/skyblue_rect"
             android:text="Tasks"
-            android:textSize="17sp"
-            android:layout_marginRight="5dp" />
+            android:textColor="#fff"
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,7 +35,7 @@
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/nvg"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -67,24 +67,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom"
-        android:layout_below="@+id/r1"
-        android:layout_marginTop="10dp" >
+        android:layout_below="@+id/r1" >
 
         <RelativeLayout
             android:id="@+id/r1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="5dp" >
 
             <TextView
                 android:id="@+id/t1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="From:"
-                android:textColor="#00aadf"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/txtfrom"
@@ -93,7 +92,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/t1"
                 android:textColor="#00aadf"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -102,16 +101,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/r1"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="5dp" >
 
             <TextView
                 android:id="@+id/t2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sent:"
-                android:textColor="#00aadf"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/txtsent"
@@ -119,9 +118,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/t2"
-                android:textColor="#00aadf"
-                android:textSize="15sp" />
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+           
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonAddFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/r2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/star_plus" />
+
+        <Button
+            android:id="@+id/buttonRemoveFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/r2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/star_minus"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/r3"
@@ -151,35 +170,61 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp" >
 
-             <Button
+            <Button
                 android:id="@+id/btnSpeaker"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/headphone" />
-             
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Switch Audio Source"
+                android:textStyle="italic"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blue_rect" />
+
             <Button
                 android:id="@+id/btnplay"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/btnSpeaker"
-                android:background="@drawable/play_icon" />
-
-            <Button
-                android:id="@+id/btnpause"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/btnplay"
-                android:background="@drawable/btnstop" />
-
+                android:layout_below="@+id/btnSpeaker"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Play"
+                android:textStyle="italic"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blue_rect" />
+            
             <Button
                 android:id="@+id/btnreply"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/btnpause"
-                android:background="@drawable/btnreply" />
+                android:layout_below="@+id/btnplay"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Respond to Message"
+                android:textStyle="italic"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/blue_rect" />
+
+            <Button
+                android:id="@+id/btnDeleteMsg"
+                android:layout_below="@+id/btnreply"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Delete"
+                android:textStyle="italic"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/delet_btb_bg" />
+
+            
         </RelativeLayout>
 
         <TextView
@@ -189,10 +234,10 @@
             android:layout_below="@+id/r4"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="Message tag:"
+            android:text="Message tags:"
             android:textColor="#00aadf"
             android:textSize="17sp"
-            android:textStyle="bold" />
+            android:textStyle="italic" />
 
         <ListView
             android:id="@+id/lst"

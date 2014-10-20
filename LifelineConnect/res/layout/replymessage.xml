@@ -27,7 +27,7 @@
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/nvg"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/t1"
             android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:weightSum="2" >
@@ -93,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:visibility="visible"
                 android:background="#00aacf" >
 
                 <TextView
@@ -135,7 +137,7 @@
             android:padding="10dp"
             android:textColor="#fff" />
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:id="@+id/layoutAudio"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -201,12 +203,23 @@
                 android:layout_marginTop="5dp"
                 android:text="90 Sec"
                 android:textColor="#fff" />
-        </RelativeLayout>
+        </RelativeLayout> -->
+        
+        <LinearLayout
+            android:id="@+id/layoutRecorderOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msgtag" >
+
+            <include
+                android:id="@+id/layoutRecorder"
+                layout="@layout/layout_recorder" />
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_below="@+id/r4"
+            android:layout_below="@+id/layoutRecorderOut"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp" >
 
@@ -214,7 +227,7 @@
                 android:id="@+id/btnreply"
                 android:layout_width="120dp"
                 android:layout_height="30dp"
-                android:background="@drawable/blue_rect"
+                android:background="@drawable/button_selector"
                 android:text="Reply"
                 android:textColor="#fff"
                 android:textSize="15sp" />

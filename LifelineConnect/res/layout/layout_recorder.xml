@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+    <RelativeLayout
+        android:id="@+id/layoutRecorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/layoutAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnrecord"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/btnrecord" />
+
+            <Button
+                android:id="@+id/btnstop"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/btnstop" />
+
+            <Button
+                android:id="@+id/btnplay"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/play_icon" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/r4"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/layoutAudio"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_centerHorizontal="true"
+                android:progressDrawable="@drawable/customprogressbar" />
+
+            <TextView
+                android:id="@+id/txtrecording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/progressBar1"
+                android:layout_marginTop="5dp"
+                android:text="Recording..."
+                android:textColor="#ff0000"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtsec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/progressBar1"
+                android:layout_marginTop="5dp"
+                android:text="90 Sec"
+                android:textColor="#fff" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

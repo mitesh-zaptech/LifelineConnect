@@ -16,7 +16,7 @@
             android:layout_height="130dp"
             android:layout_below="@+id/relativepart1"
             android:layout_marginTop="-25dp"
-            android:background="@drawable/commentbox_1shadow_left" >
+            android:background="@drawable/commentbox_1shadow_right" >
 
             <TextView
                 android:id="@+id/t1"
@@ -170,7 +170,7 @@
             android:id="@+id/relativepart1"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:background="@drawable/commentbox_1_shadow_left" >
+            android:background="@drawable/box_bg_right" >
 
             <ImageView
                 android:id="@+id/img"
@@ -183,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toLeftOf="@+id/layoutright"
                 android:layout_toRightOf="@+id/img" >
 
@@ -254,27 +254,29 @@
 
             <RelativeLayout
                 android:id="@+id/layoutright"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true" >
 
-                <Button
-                    android:id="@+id/btnplay_"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/btnArrowUpDownDisplay"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/play_icon" />
+                    android:layout_marginTop="22dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/arrow_up_down_"
+                    android:visibility="visible" />
 
-                <Button
+                <ImageView
                     android:id="@+id/btndelete"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_below="@+id/btnplay_"
-                    android:layout_centerVertical="true"
+                    android:layout_below="@+id/btnArrowUpDownDisplay"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/btndelete_white" />
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btndelete_white" />
 
                 <RelativeLayout
                     android:id="@+id/layoutplus"
@@ -293,7 +295,76 @@
                         android:background="@drawable/minus" />
                 </RelativeLayout>
             </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/imgStar"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignBottom="@+id/layoutright"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/layoutright"
+                android:background="@drawable/star"
+                android:visibility="gone" />
         </RelativeLayout>
+
+        <!--
+        <RelativeLayout
+                android:id="@+id/layoutright"
+                android:layout_width="50dp"
+                android:layout_marginRight="45dp"
+                android:layout_marginTop="13dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" >
+
+                <Button
+                    android:id="@+id/btnArrowUpDownDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/arrow_up_down_" />
+
+                <Button
+                    android:id="@+id/btndelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnArrowUpDownDisplay"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/btndelete_white" />
+
+                <RelativeLayout
+                    android:id="@+id/layoutplus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone" >
+
+                    <Button
+                        android:id="@+id/btnplus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/minus" />
+                </RelativeLayout>
+            </RelativeLayout> 
+
+            <ImageView
+                android:id="@+id/imgStar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/layoutright"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_toLeftOf="@+id/layoutright"
+                android:background="@drawable/star"
+                android:visibility="gone" />
+            
+        </RelativeLayout>
+        -->
 
         <ImageView
             android:id="@+id/imgnew"

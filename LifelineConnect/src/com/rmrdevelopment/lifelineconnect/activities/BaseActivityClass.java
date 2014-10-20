@@ -31,28 +31,29 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.rmrdevelopment.lifelineconnect.AppBaseActivity;
 import com.rmrdevelopment.lifelineconnect.utils.Constant;
 import com.rmrdevelopment.lifelineconnect.utils.RestClient;
 
-public class BaseActivityClass extends Activity {
+public class BaseActivityClass extends AppBaseActivity {
 
-	Context context = this;
-	String response;
-	JSONObject json_str;
-	String Valid;
-	String strRequest = null;
-	String data_array;
-	JSONArray array = null;
-	ProgressDialog progressDialog;
-	public static BaseActivity baseAct;
-	public static BaseActivity1 baseAct1;
+	public Context context = this;
+	public String response;
+	public JSONObject json_str;
+	public String Valid;
+	public String strRequest = null;
+	public String data_array;
+	public JSONArray array = null;
+	public ProgressDialog progressDialog;
+	public static BaseMDActivity baseAct;
+	public static BaseHomeActivity baseAct1;
 
 	public boolean isOnline() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -63,9 +64,25 @@ public class BaseActivityClass extends Activity {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		registerBaseActivityReceiver();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		unRegisterBaseActivityReceiver();
+		EasyTracker.getInstance(this).activityStop(this); 
+	}
+	
 	public String callAPI(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
+		Log.e("CAllAPI", ">>> "+map.toString());
 		String result = null;
 		int ResponseCode;
 		try {

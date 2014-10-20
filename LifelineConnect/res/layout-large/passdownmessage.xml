@@ -35,20 +35,11 @@
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/nvg"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Passdown Message"
-            android:textColor="#009cab"
-            android:textSize="30sp" />
 
         <Button
             android:id="@+id/btninfo"
@@ -58,6 +49,18 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:background="@drawable/info50" />
+        
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/btninfo"
+            android:text="Passdown Message"
+            android:textColor="#009cab"
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -66,9 +69,55 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/r1"
         android:layout_margin="15dp" >
+        
+        <LinearLayout
+            android:id="@+id/r2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <LinearLayout
+                android:id="@+id/layoutVoice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#00aacf" >
+
+                <TextView
+                    android:id="@+id/txtVoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Voice"
+                    android:textColor="#fff"
+                    android:textSize="23sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fff" >
+
+                <TextView
+                    android:id="@+id/txtMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Message"
+                    android:textSize="23sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/layoutIndividual"
+            android:layout_below="@+id/r2"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:visibility="gone" >
@@ -95,16 +144,26 @@
                 android:text="Search"
                 android:textSize="23sp" />
         </RelativeLayout>
+        
+        <TextView
+            android:id="@+id/txtUpline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/layoutIndividual"
+            android:textColor="#fff"
+            android:textSize="23sp" />
 
         <TextView
             android:id="@+id/txttag"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@+id/layoutIndividual"
+            android:layout_below="@+id/txtUpline"
             android:background="@drawable/white_border"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:layout_marginTop="20dp"
             android:singleLine="true"
             android:text="All"
             android:textColor="#fff"
@@ -122,17 +181,28 @@
             android:lines="8"
             android:padding="15dp"
             android:textColor="#fff" />
+        
+         <LinearLayout
+            android:id="@+id/layoutRecorderOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msgtag" >
+
+            <include
+                android:id="@+id/layoutRecorder"
+                layout="@layout/layout_recorder" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnpass"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_below="@+id/msgtag"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/layoutRecorderOut"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/blue_rect"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_selector"
             android:text="Pass"
             android:textColor="#fff"
             android:textSize="30sp" />

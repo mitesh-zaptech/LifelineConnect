@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rmrdevelopment.lifelineconnect"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="4"
+    android:versionName="1.0.3" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -10,12 +10,21 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <permission
+        android:name="com.rmrdevelopment.lifelineconnect.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.rmrdevelopment.lifelineconnect.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" >
@@ -29,7 +38,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.Splash"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.SplashActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -41,83 +50,112 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.Login"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.Home"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.HomeFragment"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.Downline"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.DownlineUplineActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.MessageDetails"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.MessageDetailsFragment"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.MessageDetailsSlidingFragment"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.MessageDetailsSFActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.HomeSlidingFragment"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.HomeSlidingFragmentActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.PassdownMessage"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.PassdownMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.DistroList"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.DistroListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.ReplyMessage"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.ReplyMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.EditDistroList"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.EditDistroListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.Help"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.HelpActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.SendMessage"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.SendMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
-            android:name="com.rmrdevelopment.lifelineconnect.activities.MySettings"
+            android:name="com.rmrdevelopment.lifelineconnect.activities.MySettingsActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
+        <activity
+            android:name="com.rmrdevelopment.lifelineconnect.activities.SplashForNotificationActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+        </activity>
+        
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.rmrdevelopment.lifelineconnect" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+          Application-specific subclass of GCMBaseIntentService that will
+          handle received messages.
+
+          By default, it must be named .GCMIntentService, unless the
+          application uses a custom BroadcastReceiver that redefines its name.
+        -->
+        <service android:name=".GCMIntentService" />
     </application>
 
 </manifest>

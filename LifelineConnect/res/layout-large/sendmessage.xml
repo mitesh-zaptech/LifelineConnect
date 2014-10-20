@@ -279,7 +279,7 @@
                 android:id="@+id/btnreply"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
-                android:background="@drawable/blue_rect"
+                android:background="@drawable/button_selector"
                 android:text="Send"
                 android:textColor="#fff"
                 android:textSize="23sp" />

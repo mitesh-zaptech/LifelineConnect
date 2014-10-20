@@ -2,10 +2,14 @@ package com.rmrdevelopment.lifelineconnect.utils;
 
 public class Constant {
 
-	public static final String Alert_Name = "Lifeline Connect";
-	public static String sActionUrl = "http://www.lifeleadership.com/desktopmodules/teamtalkapp/actions.aspx";
+	public static final String Alert_Name = "LIFE Line Connect";
+	public static final String File_Name = "LLConnect";
+	//public static String sActionUrl = "http://life.rmrdevelopment.com/desktopmodules/TeamTalkApp/actions.aspx"; //dev
+	public static String sActionUrl = "http://www.lifeleadership.com/desktopmodules/teamtalkapp/actions.aspx"; //live
 	public static String messagePath = "http://line.the-life-business.com/";
-	public static String sSiteUrl = "http://www.life-leadership-home.com/";
+	//public static String sSiteUrl = "http://www.life-leadership-home.com/"; //old
+	public static String sSiteUrl = "http://lifeapp.rmrdevelopment.com/"; //live
+	//public static String sSiteUrl = "http://life.rmrdevelopment.com/"; //dev
 	public static String network_error = "please check your network connectivity.";
 
 	public static String loginInfo = "As a subscriber to LIFE Line please use your LIFE Leadership website credentials to access LIFE Line.";

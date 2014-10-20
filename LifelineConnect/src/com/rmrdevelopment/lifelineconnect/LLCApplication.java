@@ -23,6 +23,7 @@ public class LLCApplication extends Application {
 	public static String UplineName = "";
 	public static String UplineUserID = "";
 	public static String ReceiveNotifications = "";
+	public static String CanVoiceTag= "";
 	public static String countMessagesDownline = "";
 	public static String countMessagesUpline = "";
 	public static int position;
@@ -30,6 +31,15 @@ public class LLCApplication extends Application {
 	
 	public static int currentDownlinePosition;
 	
+	
+	public static String getCanVoiceTag() {
+		return CanVoiceTag;
+	}
+
+	public static void setCanVoiceTag(String canVoiceTag) {
+		CanVoiceTag = canVoiceTag;
+	}
+
 	public static String getSpeaker() {
 		return speaker;
 	}
@@ -104,10 +114,10 @@ public class LLCApplication extends Application {
 		return DistroLists;
 	}
 
-	public static void setDistroLists(
+	/*public static void setDistroLists(
 			ArrayList<HashMap<String, String>> distroLists) {
 		DistroLists = distroLists;
-	}
+	}*/
 
 	public static void setTagsList(ArrayList<HashMap<String, String>> tagsList) {
 		TagsList = tagsList;

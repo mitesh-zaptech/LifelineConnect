@@ -35,20 +35,11 @@
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/nvg"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Passdown Message"
-            android:textColor="#009cab"
-            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btninfo"
@@ -58,19 +49,78 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:background="@drawable/info30" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btninfo"
+            android:text="Passdown Message"
+            android:textColor="#009cab"
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/middle"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/r1"
         android:layout_margin="10dp" >
+        
+        <LinearLayout
+            android:id="@+id/r2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <LinearLayout
+                android:id="@+id/layoutVoice"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:background="#00aacf" >
+
+                <TextView
+                    android:id="@+id/txtVoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Voice"
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="#fff" >
+
+                <TextView
+                    android:id="@+id/txtMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Message"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/layoutIndividual"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_below="@+id/r2"
             android:visibility="gone" >
 
             <EditText
@@ -100,12 +150,14 @@
             android:id="@+id/txtUpline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/layoutIndividual"
             android:textColor="#fff"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/txttag"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/txtUpline"
@@ -127,20 +179,31 @@
             android:background="@drawable/white_border"
             android:gravity="top"
             android:hint="Message Tag"
-            android:lines="5"
+            android:lines="3"
             android:padding="10dp"
             android:textColor="#fff" />
 
+        <LinearLayout
+            android:id="@+id/layoutRecorderOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msgtag" >
+
+            <include
+                android:id="@+id/layoutRecorderPassDown"
+                layout="@layout/layout_recorder" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnpass"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/msgtag"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/layoutRecorderOut"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/blue_rect"
+            android:background="@drawable/button_selector"
             android:text="Pass"
             android:textColor="#fff"
             android:textSize="20sp" />
